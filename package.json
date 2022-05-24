@@ -1,0 +1,23 @@
+{
+    "name": "gjs-quill",
+    "version": "1.0.0",
+    "description": "Demo quill intergration",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Ju99ernaut/gjs-quill.git"
+    },
+    "keywords": [
+        "grapesjs",
+        "plugin"
+    ],
+    "author": "Brendon Ngirazi",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Ju99ernaut/gjs-quill/issues"
+    },
+    "homepage": "https://github.com/Ju99ernaut/gjs-quill#readme"
+}
