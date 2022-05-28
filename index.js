@@ -10,9 +10,14 @@ window.quillRte = (editor, opts = {}) => {
 
     editor.setCustomRte({
         enable(el, rte) {
+            // If RTE already exists destroy it
+            if (rte && !rte.destroyed) {
+                rte.destroy(el);
+            }
+
             el.contentEditable = true;
 
-            let rteToolbar = editor.RichTextEditor.getToolbarEl();
+            const rteToolbar = editor.RichTextEditor.getToolbarEl();
             [].forEach.call(rteToolbar.children, (child) => {
                 child.style.display = 'none';
             });
@@ -24,10 +29,28 @@ window.quillRte = (editor, opts = {}) => {
                 ...options.quillOpts
             });
 
-            rte.getContent = () => {
-                const quillC = el.querySelector('.ql-editor p');
-                return quillC ? quillC.innerHTML : el.innerHTML;
+            // Get quill editor contents
+            rte.getContent = () => rte.root.innerHTML;
+
+            // Create deconstructor
+            rte.destroy = function (el) {
+                el.classList.remove('ql-container', 'ql-bubble');
+                for (const [key] of Object.entries(this)) {
+                    delete this[key];
+                }
+                rte.destroyed = true;
             }
+
+            // Make events propagate
+            rte.on('selection-change', (range, oldRange, source) => {
+                const tip = rte.container.querySelector('.ql-tooltip');
+                if (range && range.length === 0) {
+                    tip && tip.classList.add('ql-hidden');
+                }
+            });
+
+            // For debugging only
+            console.log('For debugging: ', rte);
 
             this.focus(el, rte);
 
@@ -36,9 +59,7 @@ window.quillRte = (editor, opts = {}) => {
 
         disable(el, rte) {
             el.contentEditable = false;
-            el.classList.remove('ql-container', 'ql-bubble');
             rte && rte.blur();
-            rte = null;
         },
 
         focus(el, rte) {
