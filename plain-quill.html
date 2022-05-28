@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.bubble.css">
+    <title>Plain Quill</title>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            height: 100%;
+        }
+
+        #quill-container {
+            height: auto;
+            min-height: 100%;
+            padding: 50px;
+        }
+
+        #quill-container .ql-editor {
+            font-size: 18px;
+            overflow-y: visible;
+        }
+
+        .scrolling-container {
+            height: 100%;
+            min-height: 100%;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="scrolling-container">
+        <div id="quill-container">
+            <h2>Demo Content</h2>
+            <p>
+                <strong>Strong </strong>This is a demo content from _index.html. You can use this template file for
+                development purpose. It won't be stored in your git repository
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script>
+        const quill = new Quill('#quill-container', {
+            theme: 'bubble',
+            scrollingContainer: '#scrolling-container'
+        });
+    </script>
+</body>
+
+</html>
