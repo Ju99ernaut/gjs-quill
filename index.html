@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/style.css">
     <script src="https://unpkg.com/grapesjs@0.18.4"></script>
     <script src="/index.js"></script>
+    <script src="/utils.js"></script>
 </head>
 
 <body>
@@ -28,11 +29,9 @@
             fromElement: true,
             noticeOnUnload: false,
             storageManager: false,
-            plugins: [quillRte],
+            plugins: [quillRte, registerCLipboard],
             canvas: {
-                scripts: [
-                    'https://cdn.quilljs.com/1.3.7/quill.min.js'
-                ],
+                scripts: ['https://cdn.quilljs.com/1.3.7/quill.min.js'],
                 styles: [
                     'https://cdn.quilljs.com/1.3.7/quill.bubble.css',
                     '/quill.css'
