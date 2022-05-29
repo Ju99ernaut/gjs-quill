@@ -41,12 +41,13 @@ window.quillRte = (editor, opts = {}) => {
                 rte.destroyed = true;
             }
 
-            // Fix selection
+            // Fix selection and formatting
             rte.on('selection-change', (range, oldRange, source) => {
                 const tip = rte.container.querySelector('.ql-tooltip');
                 if (range && range.length === 0) {
                     tip && tip.classList.add('ql-hidden');
                 }
+                rte.focus();
             });
 
             // For debugging only
