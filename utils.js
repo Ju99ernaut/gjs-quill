@@ -1,4 +1,4 @@
-window.registerClipboard = (editor) => {
+window.registerClipboard = function (editor) {
     editor.on('load', () => {
         const w = editor.Canvas.getWindow();
 
@@ -20,7 +20,7 @@ window.registerClipboard = (editor) => {
             });
         }
 
-        const deleteRange = ({ quill, range }) => {
+        function deleteRange({ quill, range }) {
             const lines = quill.getLines(range);
             let formats = {};
             if (lines.length > 1) {

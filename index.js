@@ -1,4 +1,4 @@
-window.quillRte = (editor, opts = {}) => {
+window.quillRte = function (editor, opts = {}) {
     const options = {
         ...{
             // default options
@@ -30,7 +30,9 @@ window.quillRte = (editor, opts = {}) => {
             });
 
             // Get quill editor contents
-            rte.getContent = () => rte.root.innerHTML;
+            rte.getContent = function () {
+                return rte.root.innerHTML;
+            }
 
             // Create deconstructor
             rte.destroy = function (el) {
