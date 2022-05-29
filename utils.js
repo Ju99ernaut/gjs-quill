@@ -1,4 +1,4 @@
-window.registerCLipboard = (editor) => {
+window.registerClipboard = (editor) => {
     editor.on('load', () => {
         const w = editor.Canvas.getWindow();
 
