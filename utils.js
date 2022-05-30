@@ -35,6 +35,51 @@ window.registerClipboard = function (editor) {
             quill.setSelection(range.index, w.Quill.sources.SILENT);
         }
 
+        function getListType(type) {
+            const tag = type === 'ordered' ? 'ol' : 'ul';
+            switch (type) {
+                case 'checked':
+                    return [tag, ' data-list="checked"'];
+                case 'unchecked':
+                    return [tag, ' data-list="unchecked"'];
+                default:
+                    return [tag, ''];
+            }
+        }
+
+        function convertListHTML(items, lastIndent, types) {
+            if (items.length === 0) {
+                const [endTag] = getListType(types.pop());
+                if (lastIndent <= 0) {
+                    return `</li></${endTag}>`;
+                }
+                return `</li></${endTag}>${convertListHTML([], lastIndent - 1, types)}`;
+            }
+            const [{ child, offset, length, indent, type }, ...rest] = items;
+            const [tag, attribute] = getListType(type);
+            if (indent > lastIndent) {
+                types.push(type);
+                if (indent === lastIndent + 1) {
+                    return `<${tag}><li${attribute}>${convertHTML(
+                        child,
+                        offset,
+                        length,
+                    )}${convertListHTML(rest, indent, types)}`;
+                }
+                return `<${tag}><li>${convertListHTML(items, lastIndent + 1, types)}`;
+            }
+            const previousType = types[types.length - 1];
+            if (indent === lastIndent && type === previousType) {
+                return `</li><li${attribute}>${convertHTML(
+                    child,
+                    offset,
+                    length,
+                )}${convertListHTML(rest, indent, types)}`;
+            }
+            const [endTag] = getListType(types.pop());
+            return `</li></${endTag}>${convertListHTML(items, lastIndent - 1, types)}`;
+        }
+
         function convertHTML(blot, index, length, isRoot = false) {
             if (typeof blot.html === 'function') {
                 return blot.html(index, length);
