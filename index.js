@@ -31,12 +31,11 @@ window.quillRte = function (editor, opts = {}) {
 
             // Get quill editor contents
             rte.getContent = function () {
-                return rte.root.innerHTML;
+                return `<div class="ql-editor">${rte.root.innerHTML}</div>`;
             }
 
             // Create deconstructor
             rte.destroy = function (el) {
-                el.classList.remove('ql-container', 'ql-bubble');
                 for (const [key] of Object.entries(this)) {
                     delete this[key];
                 }
