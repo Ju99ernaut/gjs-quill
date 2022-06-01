@@ -15,8 +15,6 @@ window.quillRte = function (editor, opts = {}) {
                 rte.destroy(el);
             }
 
-            el.contentEditable = true;
-
             const rteToolbar = editor.RichTextEditor.getToolbarEl();
             [].forEach.call(rteToolbar.children, (child) => {
                 child.style.display = 'none';
@@ -26,6 +24,7 @@ window.quillRte = function (editor, opts = {}) {
 
             rte = new w.Quill(el, {
                 theme: 'bubble',
+                scrollContainer: 'div[data-gjs-type=wrapper]',
                 ...options.quillOpts
             });
 
@@ -42,25 +41,12 @@ window.quillRte = function (editor, opts = {}) {
                 rte.destroyed = true;
             }
 
-            // Fix selection and formatting
-            rte.on('selection-change', (range, oldRange, source) => {
-                const tip = rte.container.querySelector('.ql-tooltip');
-                if (range && range.length === 0) {
-                    tip && tip.classList.add('ql-hidden');
-                }
-                rte.focus();
-            });
-
-            // For debugging only
-            console.log('For debugging: ', rte);
-
             this.focus(el, rte);
 
             return rte;
         },
 
         disable(el, rte) {
-            el.contentEditable = false;
             rte && rte.blur();
         },
 
@@ -68,7 +54,6 @@ window.quillRte = function (editor, opts = {}) {
             if (rte && rte.hasFocus()) {
                 return;
             }
-            el.contentEditable = true;
             rte && rte.focus();
         }
     });
