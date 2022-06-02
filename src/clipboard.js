@@ -1,4 +1,4 @@
-window.registerClipboard = function (editor) {
+export default (editor, opts = {}) => {
     editor.on('load', () => {
         const w = editor.Canvas.getWindow();
 
