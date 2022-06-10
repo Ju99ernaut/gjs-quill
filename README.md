@@ -4,6 +4,10 @@
 
 Quill RTE intergration for `grapesjs`.
 
+Sponsered by:
+
+ [![templateto.com](https://cdn.dorik.com/605a2d8f4235520011809929/61d819e8cb11310011d0bb96/images/logo-wide_dark_bg-white_trimmed_lg-txt_l9gbqgx8.png)](https://templateto.com)
+
 [DEMO](https://astounding-meerkat-d5a1ea.netlify.app)
 
 > Setup as shown in `index.html`
